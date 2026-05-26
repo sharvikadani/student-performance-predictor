@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+
+Student Performance Predictor
+
+</title>
+
+<link
+rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>
+
+🎓 Student Performance Predictor
+
+</h1>
+
+</div>
+
+
+
+{% if error %}
+
+<div class="error">
+
+{{ error }}
+
+</div>
+
+{% endif %}
+
+
+
+<form
+action="/predict"
+method="POST">
+
+
+<div class="input-grid">
+
+
+<div>
+
+<label>
+
+Hours Studied (per day)
+
+</label>
+
+<input
+type="number"
+name="hours"
+placeholder="Example: 5"
+min="0"
+max="24"
+required>
+
+</div>
+
+
+
+<div>
+
+<label>
+
+Attendance (% out of 100)
+
+</label>
+
+<input
+type="number"
+name="attendance"
+placeholder="0 - 100"
+min="0"
+max="100"
+required>
+
+</div>
+
+
+
+<div>
+
+<label>
+
+Previous Marks (out of 100)
+
+</label>
+
+<input
+type="number"
+name="marks"
+placeholder="0 - 100"
+min="0"
+max="100"
+required>
+
+</div>
+
+
+
+<div>
+
+<label>
+
+Assignments Submitted (out of 10)
+
+</label>
+
+<input
+type="number"
+name="assignments"
+placeholder="0 - 10"
+min="0"
+max="10"
+required>
+
+</div>
+
+
+</div>
+
+
+<div class="button-container">
+
+<button
+type="submit">
+
+Predict
+
+</button>
+
+</div>
+
+
+</form>
+
+
+
+{% if prediction %}
+
+
+<div class="result-card">
+
+<h2>
+
+Predicted Grade:
+{{ prediction }}
+
+</h2>
+
+<h3>
+
+{{ description }}
+
+</h3>
+
+</div>
+
+
+
+<h2>
+
+Performance Insights
+
+</h2>
+
+
+
+<div class="charts">
+
+<img
+
+src="{{ url_for(
+
+'static',
+filename='charts/heatmap.png'
+
+) }}"
+
+alt="Performance Chart"
+
+>
+
+</div>
+
+
+
+<div class="suggestions">
+
+<h3>
+
+Suggestions
+
+</h3>
+
+<ul>
+
+{% for item in suggestions %}
+
+<li>
+
+{{ item }}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+
+{% endif %}
+
+
+</div>
+
+</body>
+
+</html>
